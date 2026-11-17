@@ -17,7 +17,7 @@
     <header class="site-header">
         <div class="container header-inner">
             <a class="logo" href="{% url 'website:home' %}" aria-label="Yaawar, یاور: home">
-                {% include "website/_logo.html" with uid="header" %}
+                {% include "website/_logo.html" %}
             </a>
 
             {% url 'website:how_it_works' as how_url %}{% url 'website:impact' as impact_url %}
@@ -70,7 +70,7 @@
     <footer class="site-footer">
         <div class="container footer-inner">
             <div class="footer-brand">
-                <div class="footer-name">{% include "website/_logo.html" with uid="footer" %}</div>
+                <p class="footer-name logo logo-on-dark">{% include "website/_logo.html" %}</p>
                 <p>{{ site_settings.tagline }}</p>
                 <a class="btn btn-primary" href="{% url 'website:donate' %}">Donate</a>
             </div>
