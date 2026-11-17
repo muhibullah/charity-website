@@ -6,6 +6,8 @@ pythonanywhere.com.
 Throughout this guide, replace **`USERNAME`** with the PythonAnywhere username you pick.
 Your site will live at **`https://USERNAME.eu.pythonanywhere.com`**.
 
+The live site is currently set up at **https://yaawar.eu.pythonanywhere.com** (username `yaawar`).
+
 ---
 
 ## 1. Create the account
@@ -120,9 +122,9 @@ If you see "Something went wrong": **Web** tab → **Error log** (link near the 
 
 ## Keeping it running
 
-- **Every 3 months** PythonAnywhere emails you a reminder: log in, open the **Web** tab and click
-  **"Run until 3 months from today"**. If you forget, the site switches off (nothing is lost —
-  click the button to switch it back on).
+- **Every month** log in, open the **Web** tab and click **"Run until 1 month from today"**.
+  PythonAnywhere emails a reminder a week before. If you forget, the site switches off (nothing
+  is lost — click the button to switch it back on).
 - **Back up the database** regularly: **Files** tab → `charity-website/` → download
   `db.sqlite3`. Keep the copies somewhere private — they contain donors' details.
 
