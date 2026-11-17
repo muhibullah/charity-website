@@ -49,3 +49,7 @@ python manage.py test
 Recipient names, phone numbers and notes stay private in the admin panel. Only the
 **display name** of recipients who gave consent is used on the public website.
 Donors appear as "Anonymous" unless "Show name publicly" is ticked.
+
+## Putting it online
+
+See [DEPLOY.md](DEPLOY.md) for step-by-step instructions for PythonAnywhere's free plan.
