@@ -133,7 +133,11 @@ p { margin: 0 0 1em; }
     background-color: var(--yellow);
     background-size: cover; background-position: center;
 }
-.hero-photo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, .65) 0%, rgba(0, 0, 0, .35) 45%, rgba(0, 0, 0, 0) 75%); }
+.hero-photo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, .75) 0%, rgba(0, 0, 0, .5) 40%, rgba(0, 0, 0, 0) 70%); }
+.hero-photo { background-color: var(--ink); background-position: 70% center; }
+.hero-credit { position: absolute; right: 12px; bottom: 10px; margin: 0; max-width: calc(100% - 24px); padding: .2rem .5rem; border-radius: var(--radius); background: rgba(0, 0, 0, .55); font-size: .72rem; color: rgba(255, 255, 255, .9); text-align: right; z-index: 1; }
+.hero-credit a { color: inherit; }
+@media (max-width: 600px) { .hero-photo::before { background: rgba(0, 0, 0, .55); } }
 .hero-inner { position: relative; max-width: 1200px; }
 .hero h1 { color: var(--ink); max-width: 640px; margin-bottom: .5em; }
 .hero-photo { color: var(--white); }

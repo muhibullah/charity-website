@@ -1,9 +1,14 @@
 {% extends "website/base.html" %}
-{% load site_tags %}
+{% load static site_tags %}
 
 {% block content %}
-<section class="hero{% if site_settings.hero_image %} hero-photo{% endif %}"
-         {% if site_settings.hero_image %}style="background-image: url('{{ site_settings.hero_image.url }}')"{% endif %}>
+{% if site_settings.hero_image %}
+<section class="hero hero-photo" style="background-image: url('{{ site_settings.hero_image.url }}')">
+{% else %}
+<section class="hero hero-photo" style="background-image: url('{% static 'website/hero-aid-kunduz.jpg' %}')">
+    {# Default photo: free under the Unsplash License; credited out of fairness and to make clear it isn't our own distribution. #}
+    <p class="hero-credit">Food aid for women in Kunduz, Afghanistan. Photo: <a href="https://unsplash.com/photos/0dS1XLq9NJc" target="_blank" rel="noopener">Wanman uthmaniyyah / Unsplash</a></p>
+{% endif %}
     <div class="container hero-inner">
         <h1>{{ site_settings.tagline }}</h1>
         <p class="hero-lead">{{ site_settings.intro }}</p>
