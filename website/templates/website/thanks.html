@@ -1,0 +1,24 @@
+{% extends "website/base.html" %}
+{% load site_tags %}
+
+{% block title %}Thank you{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container narrow center thanks">
+        <div class="thanks-icon" aria-hidden="true">✓</div>
+        <h1>Thank you, {{ joined.name }}!</h1>
+        <p class="lead">
+            You've offered to give {{ joined.amount|money }}{% if joined.frequency == "monthly" %} every month{% endif %}.
+            We'll be in touch soon to set it up.
+        </p>
+        {% if site_settings.has_bank_details %}
+            <p>Want to start straight away? Use the bank details on the <a href="{% url 'website:donate' %}">Donate page</a>.</p>
+        {% endif %}
+        <div class="button-row center-row">
+            <a class="btn btn-primary" href="{% url 'website:impact' %}">See where the money goes</a>
+            {% if site_settings.whatsapp_link %}<a class="btn btn-ghost" href="{{ site_settings.whatsapp_link }}">Join our WhatsApp</a>{% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

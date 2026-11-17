@@ -1,0 +1,77 @@
+{% extends "website/base.html" %}
+{% load site_tags %}
+
+{% block title %}Where the money goes{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container narrow">
+        <p class="eyebrow">Transparency</p>
+        <h1>Where the money goes</h1>
+        <p class="lead">Every pound in and every pound out, updated automatically from our records.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="stat-grid">
+            <div class="stat"><span>{{ totals.money_in|money }}</span>raised in total</div>
+            <div class="stat"><span>{{ totals.money_out|money }}</span>given to people in need</div>
+            <div class="stat"><span>{{ totals.balance|money }}</span>held for the next payouts</div>
+            <div class="stat"><span>{{ totals.people_helped }}</span>people &amp; families helped</div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-tint">
+    <div class="container split split-top">
+        <div>
+            <h2>Month by month</h2>
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead><tr><th>Month</th><th class="num">In</th><th class="num">Out</th></tr></thead>
+                    <tbody>
+                        {% for row in months %}
+                            <tr>
+                                <td>{{ row.month|date:"F Y" }}</td>
+                                <td class="num">{{ row.money_in|money }}</td>
+                                <td class="num">{{ row.money_out|money }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <p class="small muted">Money held over from one month is given out in the following months.</p>
+        </div>
+
+        <div>
+            <h2>What it paid for</h2>
+            {% if purposes %}
+                <ul class="bars">
+                    {% for p in purposes %}
+                        <li>
+                            <div class="bar-label"><span>{{ p.purpose }}</span><span>{{ p.total|money }} · {{ p.percent }}%</span></div>
+                            <div class="bar-track"><div class="bar-fill" style="width: {{ p.percent }}%"></div></div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="muted">Nothing given out yet.</p>
+            {% endif %}
+
+            <h2 class="mt">Latest help given</h2>
+            {% if recent_payouts %}
+                <ul class="plain-list">
+                    {% for payout in recent_payouts %}
+                        <li><span>{{ payout.paid_on|date:"j M Y" }} · {{ payout.get_purpose_display }}</span><strong>{{ payout.amount|money }}</strong></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="muted">Nothing given out yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% include "website/_cta.html" %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "website/base.html" %}
+
+{% block title %}Stories{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container narrow">
+        <p class="eyebrow">Stories</p>
+        <h1>What your gifts have done</h1>
+        <p class="lead">Updates from the people and families we've helped, shared with their permission.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        {% if page.object_list %}
+            <div class="card-grid">
+                {% for story in page.object_list %}{% include "website/_story_card.html" %}{% endfor %}
+            </div>
+            {% if page.has_other_pages %}
+                <nav class="pagination" aria-label="Pages">
+                    {% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">← Newer</a>{% endif %}
+                    <span>Page {{ page.number }} of {{ page.paginator.num_pages }}</span>
+                    {% if page.has_next %}<a href="?page={{ page.next_page_number }}">Older →</a>{% endif %}
+                </nav>
+            {% endif %}
+        {% else %}
+            <p class="muted center">No stories yet - check back soon.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

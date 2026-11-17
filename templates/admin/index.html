@@ -1,0 +1,53 @@
+{% extends 'admin/base.html' %}
+{% load i18n unfold %}
+
+{% block title %}Dashboard | {{ site_title }}{% endblock %}
+
+{% block branding %}
+    {% include "unfold/helpers/site_branding.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col gap-6">
+
+    {% component "unfold/components/flex.html" with class="justify-between items-center flex-wrap gap-3" %}
+        {% component "unfold/components/title.html" %}Dashboard{% endcomponent %}
+        <div class="flex gap-2 flex-wrap">
+            {% url 'admin:donations_donation_add' as add_donation %}
+            {% component "unfold/components/button.html" with href=add_donation %}Record a donation{% endcomponent %}
+            {% url 'admin:aid_payout_add' as add_payout %}
+            {% component "unfold/components/button.html" with href=add_payout variant="default" %}Record a payout{% endcomponent %}
+        </div>
+    {% endcomponent %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {% for stat in stats %}
+            {% component "unfold/components/card.html" %}
+                {% component "unfold/components/text.html" %}{{ stat.label }}{% endcomponent %}
+                {% component "unfold/components/title.html" with class="mt-1" %}{{ stat.value }}{% endcomponent %}
+                {% component "unfold/components/text.html" with class="mt-2 text-base-400" %}{{ stat.note }}{% endcomponent %}
+            {% endcomponent %}
+        {% endfor %}
+    </div>
+
+    {% if new_signups.rows %}
+        {% component "unfold/components/card.html" with title="New website sign-ups to follow up" description="People who joined on the website and don't have a monthly plan set up yet." %}
+            {% component "unfold/components/table.html" with table=new_signups card_included=1 %}{% endcomponent %}
+        {% endcomponent %}
+    {% endif %}
+
+    {% component "unfold/components/card.html" with title="Last 6 months" %}
+        {% component "unfold/components/table.html" with table=monthly_table card_included=1 striped=1 %}{% endcomponent %}
+    {% endcomponent %}
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {% component "unfold/components/card.html" with title="Latest donations" %}
+            {% component "unfold/components/table.html" with table=recent_donations card_included=1 %}{% endcomponent %}
+        {% endcomponent %}
+
+        {% component "unfold/components/card.html" with title="Latest payouts" %}
+            {% component "unfold/components/table.html" with table=recent_payouts card_included=1 %}{% endcomponent %}
+        {% endcomponent %}
+    </div>
+</div>
+{% endblock %}

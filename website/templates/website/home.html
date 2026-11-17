@@ -1,0 +1,144 @@
+{% extends "website/base.html" %}
+{% load site_tags %}
+
+{% block content %}
+<section class="hero{% if site_settings.hero_image %} hero-photo{% endif %}"
+         {% if site_settings.hero_image %}style="background-image: url('{{ site_settings.hero_image.url }}')"{% endif %}>
+    <div class="container hero-inner">
+        <h1>{{ site_settings.tagline }}</h1>
+        <p class="hero-lead">{{ site_settings.intro }}</p>
+
+        <form class="give-box" method="get" action="{% url 'website:donate' %}" data-give-box>
+            <div class="toggle" role="radiogroup" aria-label="How often">
+                <label><input type="radio" name="frequency" value="one_off"><span>Once</span></label>
+                <label><input type="radio" name="frequency" value="monthly" checked><span>Monthly</span></label>
+            </div>
+            <div class="amounts" role="radiogroup" aria-label="Amount">
+                <label><input type="radio" name="amount" value="10" checked><span>£10</span></label>
+                <label><input type="radio" name="amount" value="20"><span>£20</span></label>
+                <label><input type="radio" name="amount" value="50"><span>£50</span></label>
+                <label><input type="radio" name="amount" value="other"><span>Other</span></label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg" data-give-label>Give £10 monthly</button>
+            <p class="give-note">100% goes to people in need</p>
+        </form>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <p class="eyebrow">Why give with us?</p>
+        <h2>Giving directly is <span class="accent">simple</span></h2>
+
+        <div class="why-grid">
+            <div class="why-card">
+                <div>
+                    <h3>No middlemen</h3>
+                    <p>We are volunteers with no offices and no salaries. Your gift goes straight to someone who needs it - as cash, a bank transfer, food or a paid bill.</p>
+                </div>
+                <div class="why-stat">
+                    <span>100%</span>
+                    of donations go to people in need
+                </div>
+            </div>
+            <div class="columns" aria-label="Our impact so far">
+                <div class="column column-1"><span>{{ totals.people_helped }}</span>people &amp; families helped</div>
+                <div class="column column-2"><span>{{ totals.money_out|money }}</span>given directly so far</div>
+                <div class="column column-3"><span>{{ totals.active_donors }}</span>monthly donors and growing</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-mint">
+    <div class="container">
+        <p class="eyebrow">How it works</p>
+        <h2>From your pocket to their hands in <span class="accent">3 steps</span></h2>
+        <ol class="steps">
+            <li>
+                <span class="step-num">01</span>
+                <h3>You give monthly</h3>
+                <p>Join with £10, £20 or any amount. Stop or change it whenever you like.</p>
+            </li>
+            <li>
+                <span class="step-num">02</span>
+                <h3>We pool it together</h3>
+                <p>Members suggest people who are struggling. We check each case and agree together.</p>
+            </li>
+            <li>
+                <span class="step-num">03</span>
+                <h3>It goes straight to people</h3>
+                <p>Cash, bank transfers, food or bills - and we publish every pound in and out.</p>
+            </li>
+        </ol>
+        <a class="text-link" href="{% url 'website:how_it_works' %}">Learn more →</a>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="split">
+            <div>
+                <p class="eyebrow">Transparency</p>
+                <h2>Every pound <span class="accent">accounted for</span></h2>
+                <p class="muted">Each month we publish exactly how much came in and where it went - calculated straight from our records.</p>
+                <a class="btn btn-outline" href="{% url 'website:impact' %}">See where the money goes</a>
+            </div>
+            <div class="number-cards">
+                <div class="number-card"><span>{{ totals.money_in|money }}</span>raised in total</div>
+                <div class="number-card"><span>{{ totals.money_out|money }}</span>given out</div>
+                <div class="number-card"><span>{{ totals.monthly_committed|money }}</span>raised each month</div>
+                <div class="number-card number-card-dark"><span>{{ totals.balance|money }}</span>ready for the next payouts</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if stories %}
+<section class="section section-gray">
+    <div class="container">
+        <div class="section-head-row">
+            <div>
+                <p class="eyebrow">Stories</p>
+                <h2>What your gifts have <span class="accent">done</span></h2>
+            </div>
+            <a class="text-link" href="{% url 'website:story_list' %}">All stories →</a>
+        </div>
+        <div class="card-grid">
+            {% for story in stories %}{% include "website/_story_card.html" %}{% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if faqs %}
+<section class="section">
+    <div class="container narrow">
+        <p class="eyebrow">FAQ</p>
+        <h2>Common <span class="accent">questions</span></h2>
+        {% include "website/_faq_list.html" %}
+        <a class="text-link" href="{% url 'website:faq' %}">More questions →</a>
+    </div>
+</section>
+{% endif %}
+
+{% include "website/_cta.html" %}
+
+<script>
+    // Keep the hero button text in sync with the chosen amount and frequency.
+    (function () {
+        var box = document.querySelector("[data-give-box]");
+        if (!box) return;
+        var label = box.querySelector("[data-give-label]");
+        function update() {
+            var amount = box.querySelector("input[name=amount]:checked").value;
+            var monthly = box.querySelector("input[name=frequency]:checked").value === "monthly";
+            label.textContent = amount === "other"
+                ? (monthly ? "Choose a monthly amount" : "Choose an amount")
+                : "Give £" + amount + (monthly ? " monthly" : "");
+        }
+        box.addEventListener("change", update);
+        update();
+    })();
+</script>
+{% endblock %}

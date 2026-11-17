@@ -1,0 +1,14 @@
+<article class="story-card">
+    <a href="{% url 'website:story_detail' story.slug %}">
+        {% if story.image %}
+            <img class="story-card-img" src="{{ story.image.url }}" alt="" loading="lazy">
+        {% else %}
+            <div class="story-card-img story-card-placeholder" aria-hidden="true"></div>
+        {% endif %}
+        <div class="story-card-body">
+            <time class="small muted" datetime="{{ story.published_on|date:'Y-m-d' }}">{{ story.published_on|date:"j F Y" }}</time>
+            <h3>{{ story.title }}</h3>
+            <p>{{ story.summary }}</p>
+        </div>
+    </a>
+</article>

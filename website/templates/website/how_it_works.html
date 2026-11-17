@@ -1,0 +1,54 @@
+{% extends "website/base.html" %}
+{% load site_tags %}
+
+{% block title %}How it works{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container narrow">
+        <p class="eyebrow">How it works</p>
+        <h1>From your pocket to someone who needs it</h1>
+        <p class="lead">No middlemen, no big overheads. Here's exactly what happens to your money.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container narrow">
+        <ol class="timeline">
+            <li>
+                <h3>1. You join</h3>
+                <p>Sign up on our <a href="{% url 'website:donate' %}">Donate page</a> and choose an amount - most people give £10 or £20 a month. You can also give once.</p>
+            </li>
+            <li>
+                <h3>2. You give each month</h3>
+                <p>Pay by card or bank standing order. Every payment is recorded, so you always know what you've given.</p>
+            </li>
+            <li>
+                <h3>3. Members suggest who to help</h3>
+                <p>Our members know people who are struggling - a family behind on rent, an elderly neighbour who can't afford heating, someone facing a medical bill. Each case is checked before we help.</p>
+            </li>
+            <li>
+                <h3>4. We agree together</h3>
+                <p>Each month the group decides where the pooled money goes, based on who needs it most.</p>
+            </li>
+            <li>
+                <h3>5. The help goes out</h3>
+                <p>We give cash, bank transfers or essentials such as food parcels and bill payments - directly, with nothing taken off.</p>
+            </li>
+            <li>
+                <h3>6. We report back</h3>
+                <p>Every month's money in and money out is published on <a href="{% url 'website:impact' %}">Where the money goes</a>. With permission, we share stories too.</p>
+            </li>
+        </ol>
+    </div>
+</section>
+
+<section class="section section-tint">
+    <div class="container narrow">
+        <h2>Privacy and dignity come first</h2>
+        <p>The people we help never have their full names, addresses or photos published unless they choose to share their story. Donors are shown as "Anonymous" unless they ask to be named.</p>
+    </div>
+</section>
+
+{% include "website/_cta.html" %}
+{% endblock %}

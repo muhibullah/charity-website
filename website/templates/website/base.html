@@ -1,0 +1,127 @@
+{% load static %}<!doctype html>
+<html lang="en-GB">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ site_settings.tagline }}{% endblock %} | {{ site_name }}</title>
+    <meta name="description" content="{% block description %}{{ site_settings.intro|truncatechars:160 }}{% endblock %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'website/site.css' %}">
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="logo" href="{% url 'website:home' %}">
+                <span class="logo-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.6 4.5c2.1 0 3.7 1.1 4.5 2.6.3.6 1.5.6 1.8 0 .8-1.5 2.4-2.6 4.5-2.6 3.6 0 5.7 3.8 4.2 7.2C19.5 16.4 12 21 12 21z"/></svg>
+                </span>
+                {{ site_name }}
+            </a>
+
+            {% url 'website:how_it_works' as how_url %}{% url 'website:impact' as impact_url %}
+            {% url 'website:story_list' as stories_url %}{% url 'website:about' as about_url %}{% url 'website:faq' as faq_url %}
+            {% url 'website:contact' as contact_url %}
+            <nav class="main-nav" aria-label="Main">
+                <a href="{{ how_url }}" {% if request.path == how_url %}aria-current="page"{% endif %}>How it works</a>
+                <div class="nav-item has-menu">
+                    <button type="button" class="nav-toggle{% if request.path == impact_url or stories_url in request.path %} is-current{% endif %}" aria-expanded="false" aria-controls="menu-impact">Our impact</button>
+                    <div class="nav-menu" id="menu-impact">
+                        <a href="{{ impact_url }}" {% if request.path == impact_url %}aria-current="page"{% endif %}>Where the money goes<small>Every pound in and out, each month</small></a>
+                        <a href="{{ stories_url }}" {% if stories_url in request.path %}aria-current="page"{% endif %}>Stories<small>The people your gifts have helped</small></a>
+                    </div>
+                </div>
+                <div class="nav-item has-menu">
+                    <button type="button" class="nav-toggle{% if request.path == about_url or request.path == faq_url or request.path == contact_url %} is-current{% endif %}" aria-expanded="false" aria-controls="menu-about">About</button>
+                    <div class="nav-menu" id="menu-about">
+                        <a href="{{ about_url }}" {% if request.path == about_url %}aria-current="page"{% endif %}>About us<small>Who we are and how we started</small></a>
+                        <a href="{{ faq_url }}" {% if request.path == faq_url %}aria-current="page"{% endif %}>FAQ<small>Answers to common questions</small></a>
+                        <a href="{{ contact_url }}" {% if request.path == contact_url %}aria-current="page"{% endif %}>Contact<small>Get in touch with the team</small></a>
+                    </div>
+                </div>
+            </nav>
+            <a class="btn btn-primary header-donate" href="{% url 'website:donate' %}">Donate</a>
+
+            <details class="mobile-nav">
+                <summary aria-label="Open menu"><span></span><span></span><span></span></summary>
+                <div class="mobile-nav-panel">
+                    <a href="{{ how_url }}">How it works</a>
+                    <p class="mobile-nav-head">Our impact</p>
+                    <a class="sub" href="{{ impact_url }}">Where the money goes</a>
+                    <a class="sub" href="{{ stories_url }}">Stories</a>
+                    <p class="mobile-nav-head">About</p>
+                    <a class="sub" href="{{ about_url }}">About us</a>
+                    <a class="sub" href="{{ faq_url }}">FAQ</a>
+                    <a class="sub" href="{{ contact_url }}">Contact</a>
+                </div>
+            </details>
+        </div>
+    </header>
+
+    {% if site_settings.announcement %}
+        <div class="announcement"><div class="container">{{ site_settings.announcement }}</div></div>
+    {% endif %}
+
+    <main id="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <p class="footer-name">{{ site_name }}</p>
+                <p>{{ site_settings.tagline }}</p>
+                <a class="btn btn-primary" href="{% url 'website:donate' %}">Donate</a>
+            </div>
+            <div class="footer-cols">
+                <div>
+                    <p class="footer-head">Learn</p>
+                    <a href="{% url 'website:how_it_works' %}">How it works</a>
+                    <a href="{% url 'website:impact' %}">Where the money goes</a>
+                    <a href="{% url 'website:story_list' %}">Stories</a>
+                </div>
+                <div>
+                    <p class="footer-head">About</p>
+                    <a href="{% url 'website:about' %}">About us</a>
+                    <a href="{% url 'website:faq' %}">FAQ</a>
+                    <a href="{% url 'website:contact' %}">Contact</a>
+                </div>
+                <div>
+                    <p class="footer-head">Legal</p>
+                    <a href="{% url 'website:privacy' %}">Privacy policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <span>© {% now "Y" %} {{ site_name }}</span>
+            <span>A community giving group. Not a registered charity.</span>
+        </div>
+    </footer>
+
+    <script>
+        // Dropdown menus: open on click (hover also works on desktop via CSS), close on Escape or outside click.
+        (function () {
+            var toggles = document.querySelectorAll(".nav-toggle");
+            function closeAll(except) {
+                toggles.forEach(function (t) { if (t !== except) t.setAttribute("aria-expanded", "false"); });
+            }
+            toggles.forEach(function (t) {
+                t.addEventListener("click", function () {
+                    var open = t.getAttribute("aria-expanded") === "true";
+                    closeAll(t);
+                    t.setAttribute("aria-expanded", open ? "false" : "true");
+                });
+            });
+            document.addEventListener("click", function (e) {
+                if (!e.target.closest(".has-menu")) closeAll();
+            });
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape") closeAll();
+            });
+        })();
+    </script>
+</body>
+</html>

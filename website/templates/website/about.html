@@ -1,0 +1,46 @@
+{% extends "website/base.html" %}
+{% load site_tags %}
+
+{% block title %}About us{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container narrow">
+        <p class="eyebrow">About us</p>
+        <h1>A circle of friends who give</h1>
+        <div class="lead">{{ site_settings.about_text|linebreaks }}</div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="values">
+            <div>
+                <h3>Direct</h3>
+                <p>Money goes straight to people. We are all volunteers, with no offices and no salaries.</p>
+            </div>
+            <div>
+                <h3>Open</h3>
+                <p>Every month's money in and money out is <a href="{% url 'website:impact' %}">published here</a>, calculated from our records.</p>
+            </div>
+            <div>
+                <h3>Respectful</h3>
+                <p>We protect the privacy and dignity of everyone we help. Their stories are shared only with permission.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-tint">
+    <div class="container">
+        <div class="stat-grid">
+            <div class="stat"><span>{{ totals.total_donors }}</span>donors</div>
+            <div class="stat"><span>{{ totals.monthly_committed|money }}</span>given every month</div>
+            <div class="stat"><span>{{ totals.money_out|money }}</span>given so far</div>
+            <div class="stat"><span>{{ totals.people_helped }}</span>people &amp; families helped</div>
+        </div>
+    </div>
+</section>
+
+{% include "website/_cta.html" %}
+{% endblock %}

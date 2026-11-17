@@ -1,0 +1,40 @@
+{% extends "website/base.html" %}
+
+{% block title %}Privacy policy{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container narrow">
+        <p class="eyebrow">Privacy</p>
+        <h1>Privacy policy</h1>
+        <p class="muted">Last updated: {% now "j F Y" %}</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container narrow prose">
+        <p><strong>{{ site_name }}</strong> is a community giving group run by volunteers. This page explains what personal information we keep and why.</p>
+
+        <h2>What we collect</h2>
+        <ul>
+            <li><strong>Donors:</strong> your name, email, phone number (optional), how much you give and when.</li>
+            <li><strong>People we help:</strong> only what we need to help them. This is never published without their permission.</li>
+        </ul>
+
+        <h2>Why we use it</h2>
+        <p>To record donations, contact you about your giving, and show accurate totals. We rely on your consent, which you give when you sign up.</p>
+
+        <h2>Who can see it</h2>
+        <p>Only the volunteers who run the group, through a password-protected admin area. We never sell or share your details. Card payments, when available, will be handled by Stripe, and we will not see your card number.</p>
+
+        <h2>How long we keep it</h2>
+        <p>While you are a member, and for up to 6 years after your last donation for our records. You can ask us to delete it sooner.</p>
+
+        <h2>Your rights</h2>
+        <p>Under UK GDPR you can ask to see, correct or delete your information, or withdraw your consent at any time. {% if site_settings.contact_email %}Email us at <a href="mailto:{{ site_settings.contact_email }}">{{ site_settings.contact_email }}</a>.{% else %}<a href="{% url 'website:contact' %}">Contact us</a>.{% endif %} If you're unhappy, you can complain to the Information Commissioner's Office (ico.org.uk).</p>
+
+        <h2>Cookies</h2>
+        <p>We use only essential cookies needed for the website and forms to work. We do not use advertising or tracking cookies.</p>
+    </div>
+</section>
+{% endblock %}

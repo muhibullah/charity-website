@@ -1,0 +1,88 @@
+{% extends "website/base.html" %}
+
+{% block title %}Donate{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <p class="eyebrow">Donate</p>
+        <h1>Join the circle</h1>
+        <p class="lead">Tell us how you'd like to help. We'll be in touch to set up your donation - and 100% of it goes to people in need.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container donate-layout">
+        <form method="post" class="form-card" novalidate>
+            {% csrf_token %}
+            {% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}
+
+            <fieldset>
+                <legend>How often?</legend>
+                <div class="choice-row">
+                    {% for radio in form.frequency %}
+                        <label class="choice">{{ radio.tag }}<span>{{ radio.choice_label }}</span></label>
+                    {% endfor %}
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>How much?</legend>
+                <div class="choice-row">
+                    {% for radio in form.amount %}
+                        <label class="choice">{{ radio.tag }}<span>{{ radio.choice_label }}</span></label>
+                    {% endfor %}
+                </div>
+                <div class="field other-amount{% if form.other_amount.errors %} has-error{% endif %}">
+                    <label for="{{ form.other_amount.id_for_label }}">{{ form.other_amount.label }}</label>
+                    {{ form.other_amount }}
+                    {% for e in form.other_amount.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Your details</legend>
+                <div class="field-row">
+                    {% include "website/_field.html" with field=form.first_name %}
+                    {% include "website/_field.html" with field=form.last_name %}
+                </div>
+                {% include "website/_field.html" with field=form.email %}
+                {% include "website/_field.html" with field=form.phone %}
+            </fieldset>
+
+            <label class="check">{{ form.show_name_publicly }}<span>{{ form.show_name_publicly.label }}</span></label>
+            <label class="check">{{ form.consent }}<span>{{ form.consent.label }} See our <a href="{% url 'website:privacy' %}" target="_blank">privacy policy</a>.</span></label>
+            {% for e in form.consent.errors %}<p class="field-error">{{ e }}</p>{% endfor %}
+
+            <div class="hp" aria-hidden="true"><label>Leave this empty {{ form.website }}</label></div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Join now</button>
+            <p class="small muted center">Online card payments are coming soon. For now we'll send you the details to set up a standing order.</p>
+        </form>
+
+        <aside class="donate-side">
+            {% if site_settings.has_bank_details %}
+                <div class="side-card">
+                    <h2>Prefer a bank transfer?</h2>
+                    <p>You can set up a monthly standing order or send a one-off gift directly:</p>
+                    <dl class="bank-details">
+                        {% if site_settings.bank_account_name %}<div><dt>Account name</dt><dd>{{ site_settings.bank_account_name }}</dd></div>{% endif %}
+                        <div><dt>Sort code</dt><dd>{{ site_settings.bank_sort_code }}</dd></div>
+                        <div><dt>Account number</dt><dd>{{ site_settings.bank_account_number }}</dd></div>
+                        <div><dt>Reference</dt><dd>{{ site_settings.bank_reference_hint }}</dd></div>
+                    </dl>
+                    <p class="small muted">Please also fill in the form so we can thank you and record your gift.</p>
+                </div>
+            {% endif %}
+            <div class="side-card">
+                <h2>What your gift can do</h2>
+                <ul class="impact-list">
+                    <li><strong>£10</strong> can help with a week's basic food shopping</li>
+                    <li><strong>£20</strong> can top up a family's gas or electric</li>
+                    <li><strong>£50</strong> can cover an urgent bill or prescription</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</section>
+{% endblock %}

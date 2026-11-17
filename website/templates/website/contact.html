@@ -1,0 +1,35 @@
+{% extends "website/base.html" %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container narrow">
+        <p class="eyebrow">Contact</p>
+        <h1>Get in touch</h1>
+        <p class="lead">Questions, ideas, or know someone who needs help? We'd love to hear from you.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container narrow">
+        <div class="contact-grid">
+            {% if site_settings.contact_email %}
+                <a class="side-card contact-card" href="mailto:{{ site_settings.contact_email }}">
+                    <h2>Email</h2>
+                    <p>{{ site_settings.contact_email }}</p>
+                </a>
+            {% endif %}
+            {% if site_settings.whatsapp_link %}
+                <a class="side-card contact-card" href="{{ site_settings.whatsapp_link }}" target="_blank" rel="noopener">
+                    <h2>WhatsApp</h2>
+                    <p>Message us or join the group</p>
+                </a>
+            {% endif %}
+            {% if not site_settings.contact_email and not site_settings.whatsapp_link %}
+                <p class="muted">Contact details coming soon.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
