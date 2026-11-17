@@ -1,4 +1,4 @@
-# Giving Circle
+# Yaawar · یاور
 
 A website and admin panel for a community giving group: members give £10–£20 a month,
 and the money goes directly to people in need.

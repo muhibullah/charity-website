@@ -76,8 +76,12 @@ p { margin: 0 0 1em; }
 /* ---------- Header ---------- */
 .site-header { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 50; }
 .header-inner { display: flex; align-items: center; gap: 2rem; height: 64px; }
-.logo { display: inline-flex; align-items: center; gap: .5rem; font-size: 1.2rem; font-weight: 700; letter-spacing: -.03em; color: var(--heading); text-decoration: none; white-space: nowrap; }
-.logo-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--primary); color: var(--white); }
+.logo { display: inline-flex; align-items: center; gap: .6rem; color: var(--heading); text-decoration: none; white-space: nowrap; }
+.logo-mark { width: 40px; height: 40px; flex: none; }
+.logo-en { font-size: 1.35rem; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+.logo-fa { font-family: "Vazirmatn", var(--font); font-size: 1.4rem; font-weight: 700; line-height: 1; color: var(--primary-text); padding-left: .6rem; border-left: 1.5px solid var(--gray-200); }
+.logo-on-dark { color: var(--white); }
+.logo-on-dark .logo-fa { color: var(--yellow); border-color: #3a3a3a; }
 .main-nav { display: flex; align-items: center; gap: 1.75rem; }
 .main-nav a { color: var(--heading); text-decoration: none; font-size: .9rem; font-weight: 500; }
 .main-nav a:hover, .main-nav a[aria-current="page"] { color: var(--primary-text); }
@@ -302,7 +306,7 @@ fieldset:has(input[value="other"]:checked) .other-amount, .other-amount.has-erro
 .site-footer { background: var(--ink); color: #b9b9b9; padding: 56px 0 24px; font-size: .92rem; }
 .footer-inner { display: flex; justify-content: space-between; gap: 3rem; flex-wrap: wrap; }
 .footer-brand { max-width: 300px; }
-.footer-name { font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: .25rem; letter-spacing: -.02em; }
+.footer-name { margin: 0 0 .75rem; }
 .footer-cols { display: flex; gap: 4rem; flex-wrap: wrap; }
 .footer-cols div { display: flex; flex-direction: column; gap: .5rem; }
 .footer-head { font-weight: 600; color: var(--yellow); margin: 0 0 .25rem; }

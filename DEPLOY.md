@@ -42,7 +42,7 @@ Still in the same console, paste this whole block in one go — but first change
 cat > .env <<EOF
 DEBUG=false
 SECRET_KEY=$(python3 -c "import secrets; print(secrets.token_urlsafe(50))")
-SITE_NAME=Giving Circle
+SITE_NAME=Yaawar
 ALLOWED_HOSTS=USERNAME.eu.pythonanywhere.com
 CSRF_TRUSTED_ORIGINS=https://USERNAME.eu.pythonanywhere.com
 EOF

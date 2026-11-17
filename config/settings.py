@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [h.strip() for h in os.getenv("ALLOWED_HOSTS", "localhost,127.0.
 CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",") if o.strip()]
 
 # The group's public name. Change it in .env (SITE_NAME=...) - no code change needed.
-SITE_NAME = os.getenv("SITE_NAME", "Giving Circle")
+SITE_NAME = os.getenv("SITE_NAME", "Yaawar")
 
 INSTALLED_APPS = [
     # Unfold must come before django.contrib.admin
@@ -128,7 +128,8 @@ UNFOLD = {
     "SITE_TITLE": f"{SITE_NAME} admin",
     "SITE_HEADER": SITE_NAME,
     "SITE_SUBHEADER": _("Admin panel"),
-    "SITE_SYMBOL": "volunteer_activism",
+    "SITE_ICON": lambda request: static("website/logo-mark.svg"),
+    "SITE_FAVICONS": [{"rel": "icon", "type": "image/svg+xml", "href": lambda request: static("website/logo-mark.svg")}],
     "DASHBOARD_CALLBACK": "config.dashboard.dashboard_callback",
     "COLORS": {
         # Green primary colour (instead of Unfold's default purple)

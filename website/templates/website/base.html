@@ -7,7 +7,8 @@
     <meta name="description" content="{% block description %}{{ site_settings.intro|truncatechars:160 }}{% endblock %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&family=Vazirmatn:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="{% static 'website/logo-mark.svg' %}">
     <link rel="stylesheet" href="{% static 'website/site.css' %}">
 </head>
 <body>
@@ -15,11 +16,8 @@
 
     <header class="site-header">
         <div class="container header-inner">
-            <a class="logo" href="{% url 'website:home' %}">
-                <span class="logo-mark" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.6 4.5c2.1 0 3.7 1.1 4.5 2.6.3.6 1.5.6 1.8 0 .8-1.5 2.4-2.6 4.5-2.6 3.6 0 5.7 3.8 4.2 7.2C19.5 16.4 12 21 12 21z"/></svg>
-                </span>
-                {{ site_name }}
+            <a class="logo" href="{% url 'website:home' %}" aria-label="Yaawar, یاور: home">
+                {% include "website/_logo.html" %}
             </a>
 
             {% url 'website:how_it_works' as how_url %}{% url 'website:impact' as impact_url %}
@@ -72,7 +70,7 @@
     <footer class="site-footer">
         <div class="container footer-inner">
             <div class="footer-brand">
-                <p class="footer-name">{{ site_name }}</p>
+                <p class="footer-name logo logo-on-dark">{% include "website/_logo.html" %}</p>
                 <p>{{ site_settings.tagline }}</p>
                 <a class="btn btn-primary" href="{% url 'website:donate' %}">Donate</a>
             </div>
